@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/controllers/todo_controller.dart';
 import 'package:todo_and_note/view/screens/notes_screen.dart';
 import 'package:todo_and_note/view/screens/todos_screen.dart';
+import 'package:todo_and_note/view/widgets/manage_todo_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +26,29 @@ class _HomeScreenState extends State<HomeScreen>
     tabController.addListener(() {
       setState(() {});
     });
+  }
+
+  final todosController = TodoController();
+  void addTodo() async {
+    final data = await showDialog(
+      context: context,
+      builder: (ctx) {
+        return const ManageTodoDialog();
+      },
+    );
+
+    if (data != null) {
+      try {
+        todosController.addTodo(
+          data['id'],
+          data['title'],
+          data['isCompleted'] ?? false,
+        );
+        setState(() {});
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   @override
@@ -81,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen>
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: const Color(0xFF03AED2),
-        onPressed: () {},
+        onPressed: addTodo,
         child: Icon(
           tabController.index == 0 ? CupertinoIcons.add : Icons.edit,
           color: Colors.white,

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:todo_and_note/models/todo.dart';
+import 'package:todo_and_note/models/note.dart';
 
-class ManageTodoDialog extends StatefulWidget {
-  final Todo? todo;
-  const ManageTodoDialog({
+class ManageNoteDialog extends StatefulWidget {
+  final Note? note;
+  const ManageNoteDialog({
     super.key,
-    this.todo,
+    this.note,
   });
 
   @override
-  State<ManageTodoDialog> createState() => _ManageTodoDialogState();
+  State<ManageNoteDialog> createState() => _ManageNoteDialogState();
 }
 
-class _ManageTodoDialogState extends State<ManageTodoDialog> {
+class _ManageNoteDialogState extends State<ManageNoteDialog> {
   final formKey = GlobalKey<FormState>();
   String id = '';
   String title = '';
@@ -21,9 +21,9 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
   void initState() {
     super.initState();
 
-    if (widget.todo != null) {
-      id = widget.todo!.id;
-      title = widget.todo!.title;
+    if (widget.note != null) {
+      id = widget.note!.id;
+      title = widget.note!.title;
     }
   }
 
@@ -44,7 +44,7 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text(
-        widget.todo != null ? "Todoni tahrirlash" : "Todo qo'shish",
+        widget.note != null ? "Noteni tahrirlash" : "Note qo'shish",
       ),
       content: Form(
         key: formKey,
@@ -55,11 +55,11 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
               initialValue: title,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "Todo nomi",
+                labelText: "Note",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Iltimos todo nomini kiriting";
+                  return "Iltimos noteni kiriting";
                 }
 
                 return null;

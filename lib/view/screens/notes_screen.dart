@@ -1,75 +1,111 @@
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/controllers/note_controller.dart';
+import 'package:todo_and_note/models/note.dart';
+import 'package:todo_and_note/view/widgets/manage_note_dialog.dart';
+import 'package:todo_and_note/view/widgets/note_item.dart';
 
-class NotesScreen extends StatelessWidget {
+class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
+
+  @override
+  State<NotesScreen> createState() => _NotesScreenState();
+}
+
+class _NotesScreenState extends State<NotesScreen> {
+  final notesController = NoteController();
+
+  void editNote(Note note) async {
+    final data = await showDialog(
+      context: context,
+      builder: (ctx) {
+        return ManageNoteDialog(note: note);
+      },
+    );
+
+    if (data != null) {
+      notesController.editNote(
+        note.id,
+        data['title'],
+      );
+      setState(() {});
+    }
+  }
+
+  void deleteNote(Note note) async {
+    final response = await showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text("ishonchingiz komilmi?"),
+          content: Text("Siz ${note.title} o'chirmoqchisiz."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: const Text("Bekor qilish"),
+            ),
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: const Text("Ha, ishonchim komil"),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (response) {
+      await notesController.deleteNote(note.id);
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(25),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            width: double.infinity,
-            height: 90,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color(0xFFFEB941),
-            ),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "My Note",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  "Lorem ipsum dolor sit amet...",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFFEEEEEE),
-                  ),
+      padding: const EdgeInsets.all(15),
+      child: FutureBuilder(
+        future: notesController.list,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          }
+          if (!snapshot.hasData) {
+            return const Center(
+              child: Text("Notelar mavjud emas, iltimos qo'shing"),
+            );
+          }
+          final notes = snapshot.data;
+          return notes == null
+              ? const Center(
+                  child: Text("Notelar mavjud emas, iltimos qo'shing"),
                 )
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            width: double.infinity,
-            height: 90,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color(0xFFFEB941),
-            ),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "My Note",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  "Lorem ipsum dolor sit amet...",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFFEEEEEE),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
+              : ListView.builder(
+                  padding: const EdgeInsets.all(20),
+                  itemCount: notes.length,
+                  itemBuilder: (ctx, index) {
+                    final note = notes[index];
+                    return NoteItem(
+                      note: note,
+                      onEdit: () {
+                        editNote(note);
+                      },
+                      onDelete: () {
+                        deleteNote(note);
+                      },
+                    );
+                  },
+                );
+        },
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/controllers/note_controller.dart';
 import 'package:todo_and_note/controllers/todo_controller.dart';
 import 'package:todo_and_note/view/screens/notes_screen.dart';
 import 'package:todo_and_note/view/screens/todos_screen.dart';
+import 'package:todo_and_note/view/widgets/manage_note_dialog.dart';
 import 'package:todo_and_note/view/widgets/manage_todo_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   final todosController = TodoController();
+  final notesController = NoteController();
   void addTodo() async {
     final data = await showDialog(
       context: context,
@@ -43,6 +46,27 @@ class _HomeScreenState extends State<HomeScreen>
           data['id'],
           data['title'],
           data['isCompleted'] ?? false,
+        );
+        setState(() {});
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  void addNote() async {
+    final data = await showDialog(
+      context: context,
+      builder: (ctx) {
+        return const ManageNoteDialog();
+      },
+    );
+
+    if (data != null) {
+      try {
+        notesController.addNote(
+          data['id'],
+          data['title'],
         );
         setState(() {});
       } catch (e) {
@@ -106,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen>
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: const Color(0xFF03AED2),
-        onPressed: addTodo,
+        onPressed: tabController.index == 0 ? addTodo : addNote,
         child: Icon(
           tabController.index == 0 ? CupertinoIcons.add : Icons.edit,
           color: Colors.white,

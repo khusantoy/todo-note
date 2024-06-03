@@ -19,7 +19,7 @@ class NoteItem extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text(
               note.title,
               style: const TextStyle(
@@ -29,20 +29,29 @@ class NoteItem extends StatelessWidget {
             ),
           ),
           Row(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
+                style: IconButton.styleFrom(
+                  backgroundColor: Colors.black,
+                ),
                 onPressed: onEdit,
                 icon: const Icon(
                   Icons.edit,
                   color: Colors.yellow,
                 ),
               ),
-              IconButton(
-                onPressed: onDelete,
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.red,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
+                  onPressed: onDelete,
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ],

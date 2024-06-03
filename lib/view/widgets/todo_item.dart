@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/models/todo.dart';
 
-class TodoItem extends StatelessWidget {
+class TodoItem extends StatefulWidget {
   final Todo todo;
   final Function() onEdit;
   final Function() onDelete;
@@ -13,45 +13,69 @@ class TodoItem extends StatelessWidget {
   });
 
   @override
+  State<TodoItem> createState() => _TodoItemState();
+}
+
+class _TodoItemState extends State<TodoItem> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: const Color(0xFFFEB941),
-          ),
-          child: ListTile(
-            leading: const Icon(
-              Icons.circle_outlined,
-              color: Color(0xFFDD761C),
+        GestureDetector(
+          onTap: () {
+            widget.todo.isCompleted = !widget.todo.isCompleted;
+            setState(() {});
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: const Color(0xFFFEB941),
             ),
-            title: Text(
-              todo.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+            child: ListTile(
+              leading: widget.todo.isCompleted
+                  ? Container(
+                      decoration: const BoxDecoration(
+                        color: Colors
+                            .white, // Set your desired background color here
+                        shape: BoxShape
+                            .circle, // This makes the container a circle
+                      ),
+                      child: const Icon(
+                        Icons.check_circle,
+                        color: Color(0xFF03AED2), // Set icon color to white
+                      ),
+                    )
+                  : const Icon(
+                      Icons.circle_outlined,
+                      color: Color(0xFFDD761C),
+                    ),
+              title: Text(
+                widget.todo.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  onPressed: onEdit,
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.yellow,
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: widget.onEdit,
+                    icon: const Icon(
+                      Icons.edit,
+                      color: Colors.yellow,
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: onDelete,
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
+                  IconButton(
+                    onPressed: widget.onDelete,
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

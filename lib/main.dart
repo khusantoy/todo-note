@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:todo_and_note/view/screens/home_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:todo_and_note/view/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFFFDE49E),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -10,9 +17,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFFFDE49E),
+          centerTitle: true,
+        ),
+        scaffoldBackgroundColor: const Color(0xFFFDE49E),
+      ),
+      home: const MainScreen(),
     );
   }
 }

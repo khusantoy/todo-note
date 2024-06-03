@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     tabController = TabController(
@@ -78,9 +79,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDE49E),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFDE49E),
         title: tabController.index == 0
             ? const Text(
                 "Todos",

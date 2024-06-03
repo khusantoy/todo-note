@@ -44,7 +44,7 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text(
-        widget.note != null ? "Noteni tahrirlash" : "Note qo'shish",
+        widget.note != null ? "Edit note" : "Add Note",
       ),
       content: Form(
         key: formKey,
@@ -52,6 +52,8 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
+              minLines: 5,
+              maxLines: 10,
               initialValue: title,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -59,9 +61,8 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Iltimos noteni kiriting";
+                  return "Enter a note";
                 }
-
                 return null;
               },
               onSaved: (newValue) {
@@ -76,11 +77,11 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text("Bekor qilish"),
+          child: const Text("Close"),
         ),
         FilledButton(
           onPressed: submit,
-          child: const Text("Saqlash"),
+          child: const Text("Save"),
         ),
       ],
     );

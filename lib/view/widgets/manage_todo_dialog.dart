@@ -44,7 +44,7 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text(
-        widget.todo != null ? "Todoni tahrirlash" : "Todo qo'shish",
+        widget.todo != null ? "Edit todo" : "Add todo",
       ),
       content: Form(
         key: formKey,
@@ -55,11 +55,11 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
               initialValue: title,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "Todo nomi",
+                labelText: "Todo title",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Iltimos todo nomini kiriting";
+                  return "Enter a todo title";
                 }
 
                 return null;
@@ -76,11 +76,11 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text("Bekor qilish"),
+          child: const Text("Close"),
         ),
         FilledButton(
           onPressed: submit,
-          child: const Text("Saqlash"),
+          child: const Text("Save"),
         ),
       ],
     );

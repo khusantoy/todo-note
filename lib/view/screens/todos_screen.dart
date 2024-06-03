@@ -82,13 +82,13 @@ class _TodosScreenState extends State<TodosScreen> {
             }
             if (!snapshot.hasData) {
               return const Center(
-                child: Text("Mahsulotlar mavjud emas, iltimos qo'shing"),
+                child: Text("Todo mavjud emas, iltimos qo'shing"),
               );
             }
             final todos = snapshot.data;
             return todos == null
                 ? const Center(
-                    child: Text("Mahsulotlar mavjud emas, iltimos qo'shing"),
+                    child: Text("Todo mavjud emas, iltimos qo'shing"),
                   )
                 : ListView.builder(
                     padding: const EdgeInsets.all(20),

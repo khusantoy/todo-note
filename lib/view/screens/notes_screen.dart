@@ -36,20 +36,20 @@ class _NotesScreenState extends State<NotesScreen> {
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: const Text("ishonchingiz komilmi?"),
-          content: Text("Siz ${note.title} o'chirmoqchisiz."),
+          title: const Text("Are you sure?"),
+          content: Text("You're deleting ${note.title}"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: const Text("Bekor qilish"),
+              child: const Text("Cancel"),
             ),
             FilledButton(
               onPressed: () {
                 Navigator.pop(context, true);
               },
-              child: const Text("Ha, ishonchim komil"),
+              child: const Text("Yes, I'm sure"),
             ),
           ],
         );

@@ -64,49 +64,46 @@ class _NotesScreenState extends State<NotesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: FutureBuilder(
-        future: notesController.list,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-          if (!snapshot.hasData) {
-            return const Center(
-              child: Text("Notelar mavjud emas, iltimos qo'shing"),
-            );
-          }
-          final notes = snapshot.data;
-          return notes == null
-              ? const Center(
-                  child: Text("Notelar mavjud emas, iltimos qo'shing"),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(20),
-                  itemCount: notes.length,
-                  itemBuilder: (ctx, index) {
-                    final note = notes[index];
-                    return NoteItem(
-                      note: note,
-                      onEdit: () {
-                        editNote(note);
-                      },
-                      onDelete: () {
-                        deleteNote(note);
-                      },
-                    );
-                  },
-                );
-        },
-      ),
+    return FutureBuilder(
+      future: notesController.list,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return Center(
+            child: Text(snapshot.error.toString()),
+          );
+        }
+        if (!snapshot.hasData) {
+          return const Center(
+            child: Text("Notelar mavjud emas, iltimos qo'shing"),
+          );
+        }
+        final notes = snapshot.data;
+        return notes == null
+            ? const Center(
+                child: Text("Notelar mavjud emas, iltimos qo'shing"),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.all(15),
+                itemCount: notes.length,
+                itemBuilder: (ctx, index) {
+                  final note = notes[index];
+                  return NoteItem(
+                    note: note,
+                    onEdit: () {
+                      editNote(note);
+                    },
+                    onDelete: () {
+                      deleteNote(note);
+                    },
+                  );
+                },
+              );
+      },
     );
   }
 }

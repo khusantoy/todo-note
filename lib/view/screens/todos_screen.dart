@@ -65,48 +65,45 @@ class _TodosScreenState extends State<TodosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: FutureBuilder(
-          future: todosController.list,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
-            }
-            if (!snapshot.hasData) {
-              return const Center(
-                child: Text("Todo mavjud emas, iltimos qo'shing"),
-              );
-            }
-            final todos = snapshot.data;
-            return todos == null
-                ? const Center(
-                    child: Text("Todo mavjud emas, iltimos qo'shing"),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(20),
-                    itemCount: todos.length,
-                    itemBuilder: (ctx, index) {
-                      final todo = todos[index];
-                      return TodoItem(
-                        todo: todo,
-                        onEdit: () {
-                          editTodo(todo);
-                        },
-                        onDelete: () {
-                          deleteTodo(todo);
-                        },
-                      );
-                    },
-                  );
-          }),
-    );
+    return FutureBuilder(
+        future: todosController.list,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          }
+          if (!snapshot.hasData) {
+            return const Center(
+              child: Text("Todo mavjud emas, iltimos qo'shing"),
+            );
+          }
+          final todos = snapshot.data;
+          return todos == null
+              ? const Center(
+                  child: Text("Todo mavjud emas, iltimos qo'shing"),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.all(15),
+                  itemCount: todos.length,
+                  itemBuilder: (ctx, index) {
+                    final todo = todos[index];
+                    return TodoItem(
+                      todo: todo,
+                      onEdit: () {
+                        editTodo(todo);
+                      },
+                      onDelete: () {
+                        deleteTodo(todo);
+                      },
+                    );
+                  },
+                );
+        });
   }
 }

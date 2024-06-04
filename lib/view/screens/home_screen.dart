@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/controllers/note_controller.dart';
 import 'package:todo_and_note/controllers/todo_controller.dart';
+import 'package:todo_and_note/view/screens/courses_screen.dart';
 import 'package:todo_and_note/view/screens/notes_screen.dart';
 import 'package:todo_and_note/view/screens/todos_screen.dart';
 import 'package:todo_and_note/view/widgets/manage_note_dialog.dart';
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     tabController = TabController(
-      length: 2,
+      length: 3,
       vsync: this,
       initialIndex: 0,
     );
@@ -87,12 +88,19 @@ class _HomeScreenState extends State<HomeScreen>
                   color: Color(0xFFDD761C),
                 ),
               )
-            : const Text(
-                "Notes",
-                style: TextStyle(
-                  color: Color(0xFFDD761C),
-                ),
-              ),
+            : tabController.index == 1
+                ? const Text(
+                    "Notes",
+                    style: TextStyle(
+                      color: Color(0xFFDD761C),
+                    ),
+                  )
+                : const Text(
+                    "Courses",
+                    style: TextStyle(
+                      color: Color(0xFFDD761C),
+                    ),
+                  ),
         centerTitle: true,
         bottom: TabBar(
           dividerColor: const Color(0xFFFDE49E),
@@ -103,15 +111,34 @@ class _HomeScreenState extends State<HomeScreen>
             Tab(
               text: "Todos",
               icon: Icon(
-                Icons.check_box_outlined,
+                Icons.check_box,
               ),
             ),
             Tab(
               text: "Notes",
-              icon: Icon(Icons.note),
+              icon: Icon(Icons.edit_document),
+            ),
+            Tab(
+              text: "Courses",
+              icon: Icon(Icons.school),
             )
           ],
         ),
+        actions: [
+          PopupMenuButton(itemBuilder: (BuildContext context) {
+            return [
+              const PopupMenuItem(
+                child: Row(
+                  children: [
+                    Icon(Icons.school),
+                    SizedBox(width: 15),
+                    Text("Manage Courses")
+                  ],
+                ),
+              ),
+            ];
+          })
+        ],
       ),
       body: Column(
         children: [
@@ -121,6 +148,7 @@ class _HomeScreenState extends State<HomeScreen>
               children: const [
                 TodosScreen(),
                 NotesScreen(),
+                CoursesScreen(),
               ],
             ),
           ),
@@ -129,7 +157,11 @@ class _HomeScreenState extends State<HomeScreen>
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: const Color(0xFF03AED2),
-        onPressed: tabController.index == 0 ? addTodo : addNote,
+        onPressed: tabController.index == 0
+            ? addTodo
+            : tabController.index == 1
+                ? addNote
+                : null,
         child: Icon(
           tabController.index == 0 ? CupertinoIcons.add : Icons.edit,
           color: Colors.white,

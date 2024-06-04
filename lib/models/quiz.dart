@@ -1,23 +1,25 @@
-class Quiz {
-  int id;
-  String question;
-  List options;
+import 'package:json_annotation/json_annotation.dart';
+part 'quiz.g.dart';
 
-  Quiz({required this.id, required this.question, required this.options});
+@JsonSerializable()
+class Quiz {
+  String id;
+  String question;
+  List answers;
+  int correctAnswer;
+
+  Quiz({
+    required this.id,
+    required this.question,
+    required this.answers,
+    required this.correctAnswer,
+  });
 
   factory Quiz.fromJson(Map<String, dynamic> json) {
-    return Quiz(
-      id: json['id'],
-      question: json['question'],
-      options: json['options'],
-    );
+    return _$QuizFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'question': question,
-      'options': options,
-    };
+    return _$QuizToJson(this);
   }
 }

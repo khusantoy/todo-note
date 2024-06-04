@@ -17,6 +17,7 @@ class NoteItem extends StatelessWidget {
     return Card(
       color: const Color(0xFFFEB941),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

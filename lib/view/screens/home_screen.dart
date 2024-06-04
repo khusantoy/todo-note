@@ -125,19 +125,20 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
         actions: [
-          PopupMenuButton(itemBuilder: (BuildContext context) {
-            return [
-              const PopupMenuItem(
-                child: Row(
-                  children: [
-                    Icon(Icons.school),
-                    SizedBox(width: 15),
-                    Text("Manage Courses")
-                  ],
+          if (tabController.index == 2)
+            PopupMenuButton(itemBuilder: (BuildContext context) {
+              return [
+                const PopupMenuItem(
+                  child: Row(
+                    children: [
+                      Icon(Icons.school),
+                      SizedBox(width: 15),
+                      Text("Manage Courses")
+                    ],
+                  ),
                 ),
-              ),
-            ];
-          })
+              ];
+            })
         ],
       ),
       body: Column(
@@ -154,19 +155,21 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        backgroundColor: const Color(0xFF03AED2),
-        onPressed: tabController.index == 0
-            ? addTodo
-            : tabController.index == 1
-                ? addNote
-                : null,
-        child: Icon(
-          tabController.index == 0 ? CupertinoIcons.add : Icons.edit,
-          color: Colors.white,
-        ),
-      ),
+      floatingActionButton: tabController.index != 2
+          ? FloatingActionButton(
+              shape: const CircleBorder(),
+              backgroundColor: const Color(0xFF03AED2),
+              onPressed: tabController.index == 0
+                  ? addTodo
+                  : tabController.index == 1
+                      ? addNote
+                      : null,
+              child: Icon(
+                tabController.index == 0 ? CupertinoIcons.add : Icons.edit,
+                color: Colors.white,
+              ),
+            )
+          : null,
     );
   }
 }

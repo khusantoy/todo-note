@@ -1,7 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:todo_and_note/models/lesson.dart';
+part 'course.g.dart';
 
+@JsonSerializable()
 class Course {
-  int id;
+  String id;
   String title;
   String description;
   String imageUrl;
@@ -18,26 +21,10 @@ class Course {
   });
 
   factory Course.fromJson(Map<String, dynamic> json) {
-    return Course(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      imageUrl: json['imageUrl'],
-      lessons: (json['lessons'] as List)
-          .map((lessonJson) => Lesson.fromJson(lessonJson))
-          .toList(),
-      price: json['price'],
-    );
+    return _$CourseFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'imageUrl': imageUrl,
-      'lesson': lessons.map((lesson) => lesson.toJson()).toList(),
-      'price': price,
-    };
+    return _$CourseToJson(this);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/controllers/course_controller.dart';
+import 'package:todo_and_note/view/screens/course_details_screen.dart';
 
 class CoursesScreen extends StatefulWidget {
   const CoursesScreen({super.key});
@@ -66,7 +67,13 @@ class _CoursesScreenState extends State<CoursesScreen> {
                             padding: const EdgeInsets.only(bottom: 20),
                             child: ListTile(
                               onTap: () {
-                                print("bosild");
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (ctx) => CourseDetailsScreen(
+                                      course: course,
+                                    ),
+                                  ),
+                                );
                               },
                               contentPadding: const EdgeInsets.all(10),
                               tileColor: const Color(0xFFFEB941),
@@ -88,15 +95,12 @@ class _CoursesScreenState extends State<CoursesScreen> {
                               title: Text(
                                 course.title,
                                 style: const TextStyle(
-                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               subtitle: Text(
                                 course.description,
-                                style: TextStyle(
-                                  color: Colors.grey.shade100,
-                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           );
@@ -113,55 +117,63 @@ class _CoursesScreenState extends State<CoursesScreen> {
                         itemBuilder: (context, index) {
                           final course = courses[index];
 
-                          return Card(
-                            color: const Color(0xFFFEB941),
-                            clipBehavior: Clip.hardEdge,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 100,
-                                  width: double.infinity,
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(8),
-                                      bottomRight: Radius.circular(8),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) =>
+                                      CourseDetailsScreen(course: course),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              color: const Color(0xFFFEB941),
+                              clipBehavior: Clip.hardEdge,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 100,
+                                    width: double.infinity,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(8),
+                                        bottomRight: Radius.circular(8),
+                                      ),
+                                    ),
+                                    child: Image.network(
+                                      course.imageUrl,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  child: Image.network(
-                                    course.imageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        course.title,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
+                                  Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          course.title,
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        course.description,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                        overflow: course.description.length > 40
-                                            ? TextOverflow.ellipsis
-                                            : null,
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          course.description,
+                                          overflow:
+                                              course.description.length > 40
+                                                  ? TextOverflow.ellipsis
+                                                  : null,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },

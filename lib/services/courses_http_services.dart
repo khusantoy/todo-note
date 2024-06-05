@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:todo_and_note/models/course.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,7 @@ class CoursesHttpServices {
       }
       return loadedCourses;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
 
     return [];

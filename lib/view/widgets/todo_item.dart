@@ -37,13 +37,13 @@ class _TodoItemState extends State<TodoItem> {
                   ? Container(
                       decoration: const BoxDecoration(
                         color: Colors
-                            .white, // Set your desired background color here
+                            .black, // Set your desired background color here
                         shape: BoxShape
                             .circle, // This makes the container a circle
                       ),
                       child: const Icon(
                         Icons.check_circle,
-                        color: Color(0xFF03AED2), // Set icon color to white
+                        color: Colors.green, // Set icon color to white
                       ),
                     )
                   : const Icon(
@@ -53,7 +53,6 @@ class _TodoItemState extends State<TodoItem> {
               title: Text(
                 widget.todo.title,
                 style: const TextStyle(
-                  color: Colors.white,
                   fontWeight: FontWeight.w500,
                 ),
               ),

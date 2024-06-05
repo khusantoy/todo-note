@@ -24,7 +24,6 @@ class NoteItem extends StatelessWidget {
             child: Text(
               note.title,
               style: const TextStyle(
-                color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
             ),

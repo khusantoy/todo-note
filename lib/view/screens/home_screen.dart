@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen>
         );
         setState(() {});
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     }
   }
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen>
         );
         setState(() {});
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     }
   }
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen>
                 const PopupMenuItem(
                   child: Row(
                     children: [
-                      Icon(Icons.school),
+                      Icon(Icons.settings),
                       SizedBox(width: 15),
                       Text("Manage Courses")
                     ],

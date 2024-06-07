@@ -3,10 +3,7 @@ import 'package:todo_and_note/models/note.dart';
 
 class ManageNoteDialog extends StatefulWidget {
   final Note? note;
-  const ManageNoteDialog({
-    super.key,
-    this.note,
-  });
+  const ManageNoteDialog({super.key, this.note});
 
   @override
   State<ManageNoteDialog> createState() => _ManageNoteDialogState();
@@ -14,7 +11,6 @@ class ManageNoteDialog extends StatefulWidget {
 
 class _ManageNoteDialogState extends State<ManageNoteDialog> {
   final formKey = GlobalKey<FormState>();
-  String id = '';
   String title = '';
 
   @override
@@ -22,7 +18,6 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
     super.initState();
 
     if (widget.note != null) {
-      id = widget.note!.id;
       title = widget.note!.title;
     }
   }
@@ -31,10 +26,7 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-      Navigator.pop(context, {
-        "id": title,
-        "title": title,
-      });
+      Navigator.pop(context, {"title": title});
       setState(() {});
     }
   }
@@ -58,6 +50,7 @@ class _ManageNoteDialogState extends State<ManageNoteDialog> {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Note",
+                alignLabelWithHint: true,
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {

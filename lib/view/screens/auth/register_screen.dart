@@ -26,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool hideConfirmPasswordField = true;
 
   void checkExpire() {
-    Timer(const Duration(seconds: 3), handleTimeout);
+    Timer(const Duration(seconds: 3600), handleTimeout);
   }
 
   void handleTimeout() {

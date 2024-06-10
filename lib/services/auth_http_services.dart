@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../key/api_key.dart';
 
 class AuthHttpServices {
   // web api key
-  final String _apiKey = "AIzaSyCS8z4S7lgIM91lg0vn-sQiCAfrcCkPOyg";
+  final String _apiKey = ApiKey.apiKey;
 
   // authenticate
   Future<void> _authenticate(

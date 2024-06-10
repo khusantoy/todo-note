@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? password;
 
   void checkExpire() {
-    Timer(const Duration(seconds: 3), handleTimeout);
+    Timer(const Duration(seconds: 3600), handleTimeout);
   }
 
   void handleTimeout() {

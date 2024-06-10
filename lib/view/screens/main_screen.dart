@@ -20,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
     _internetConnectionStreamSubscription =
         InternetConnection().onStatusChange.listen((event) {
       switch (event) {
@@ -30,8 +31,11 @@ class _MainScreenState extends State<MainScreen> {
           isConnectedToInternet
               ? ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      backgroundColor: Colors.green,
-                      content: Center(child: Text("Back Online"))),
+                    backgroundColor: Colors.green,
+                    content: Center(
+                      child: Text("Back Online"),
+                    ),
+                  ),
                 )
               : null;
           break;

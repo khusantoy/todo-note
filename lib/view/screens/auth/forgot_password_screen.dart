@@ -32,7 +32,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         });
 
         Future.delayed(
-          Duration(seconds: 2),
+          const Duration(seconds: 2),
           () {
             Navigator.push(
               context,

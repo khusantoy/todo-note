@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
@@ -23,6 +25,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool hidePasswordFiled = true;
   bool hideConfirmPasswordField = true;
 
+  void checkExpire() {
+    Timer(const Duration(seconds: 3), handleTimeout);
+  }
+
+  void handleTimeout() {
+    AuthHttpServices.logout();
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (ctx) => const LoginScreen(),
+        ));
+  }
+
   void submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -34,6 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       try {
         await _authHttpServices.register(email!, password!);
+        checkExpire();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (ctx) => const MainScreen()),

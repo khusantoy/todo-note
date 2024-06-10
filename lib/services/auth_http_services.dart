@@ -63,6 +63,33 @@ class AuthHttpServices {
     await _authenticate(email, password, "signInWithPassword");
   }
 
+  // reset password
+  Future<void> resetPassword(String email) async {
+    Uri url = Uri.parse(
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=$_apiKey",
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        body: jsonEncode(
+          {
+            "requestType": "PASSWORD_RESET",
+            "email": email,
+          },
+        ),
+      );
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode != 200) {
+        throw (data['error']['message']);
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   // check auth
   Future<bool> checkAuth() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
 import 'package:todo_and_note/view/screens/auth/login_screen.dart';
-import 'package:todo_and_note/view/screens/home_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -21,6 +20,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? email, password, passwordConfirm;
   bool isLoading = false;
 
+  bool hidePasswordFiled = true;
+  bool hideConfirmPasswordField = true;
+
   void submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -34,9 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         await _authHttpServices.register(email!, password!);
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (ctx) => const MainScreen(),
-          ),
+          MaterialPageRoute(builder: (ctx) => const MainScreen()),
         );
       } catch (e) {
         String message = e.toString();
@@ -107,14 +107,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  obscureText: true,
+                  obscureText: hidePasswordFiled,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
                   controller: _passwordController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: "Password",
-                    prefixIcon: Icon(Icons.password),
+                    prefixIcon: const Icon(Icons.password),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hidePasswordFiled = !hidePasswordFiled;
+                        });
+                      },
+                      icon: hidePasswordFiled
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -132,14 +142,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  obscureText: true,
+                  obscureText: hideConfirmPasswordField,
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
                   controller: _passwordConfirmController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
                     labelText: "Confirm Password",
-                    prefixIcon: Icon(Icons.password),
+                    prefixIcon: const Icon(Icons.password),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hideConfirmPasswordField = !hideConfirmPasswordField;
+                        });
+                      },
+                      icon: hideConfirmPasswordField
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
+                    ),
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {

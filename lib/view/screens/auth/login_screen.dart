@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
 import 'package:todo_and_note/view/screens/auth/register_screen.dart';
-import 'package:todo_and_note/view/screens/home_screen.dart';
+import 'package:todo_and_note/view/screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +14,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _authHttpServices = AuthHttpServices();
+
   bool isLoading = false;
+
+  bool hidePasswordField = true;
 
   String? email;
   String? password;
@@ -32,17 +35,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-            builder: (ctx) {
-              return const HomeScreen();
-            },
-          ),
+          MaterialPageRoute(builder: (ctx) => const MainScreen()),
         );
       } on Exception catch (e) {
         String message = e.toString();
 
         if (e.toString().contains("EMAIL_EXISTS")) {
           message = "Email is exists";
+        } else if (e.toString().contains("INVALID_LOGIN_CREDENTIALS")) {
+          message = "User not found";
         }
         showDialog(
           context: context,
@@ -105,13 +106,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               TextFormField(
-                obscureText: true,
+                obscureText: hidePasswordField,
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
                   labelText: "Password",
-                  prefixIcon: Icon(Icons.password),
+                  prefixIcon: const Icon(Icons.password),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        hidePasswordField = !hidePasswordField;
+                      });
+                    },
+                    icon: Icon(hidePasswordField
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {

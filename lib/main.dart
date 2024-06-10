@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:todo_and_note/services/auth_http_services.dart';
+import 'package:todo_and_note/view/screens/auth/login_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
 
 void main() {
@@ -12,8 +14,27 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final authHttpServices = AuthHttpServices();
+  bool isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    authHttpServices.checkAuth().then((value) {
+      setState(() {
+        isLoggedIn = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +47,7 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color(0xFFFDE49E),
       ),
-      home: const MainScreen(),
+      home: isLoggedIn ? const MainScreen() : const LoginScreen(),
     );
   }
 }

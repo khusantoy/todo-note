@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
 import 'package:todo_and_note/view/screens/auth/login_screen.dart';
+import 'package:todo_and_note/view/screens/auth/forgot_password_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
 
 void main() {

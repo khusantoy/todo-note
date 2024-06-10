@@ -86,7 +86,7 @@ class AuthHttpServices {
         throw (data['error']['message']);
       }
     } catch (e) {
-      rethrow;
+      print(e);
     }
   }
 

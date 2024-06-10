@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
+import 'package:todo_and_note/view/screens/auth/forgot_password_screen.dart';
 import 'package:todo_and_note/view/screens/auth/register_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
 
@@ -135,20 +136,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   password = newValue;
                 },
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Forgot password?",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (ctx) => const ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  )),
               const SizedBox(
                 height: 20,
               ),

@@ -17,10 +17,7 @@ class CourseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Course Details",
-          style: TextStyle(color: Color(0xFFDD761C)),
-        ),
+        title: const Text("Course Details"),
         actions: [
           IconButton(
             onPressed: () {},
@@ -69,26 +66,19 @@ class CourseDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Divider(
-              color: Colors.grey,
-            ),
+            const Divider(),
             RichText(
               text: TextSpan(
                 children: [
-                  const TextSpan(
-                    text: "Price: ",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
+                  const TextSpan(text: "Price: "),
                   TextSpan(
                     text: course.price.toString(),
                     style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const TextSpan(
                     text: " sum",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(fontSize: 18),
                   ),
                 ],
               ),
@@ -98,9 +88,6 @@ class CourseDetailsScreen extends StatelessWidget {
               width: double.infinity,
               height: 65,
               child: FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFFFEB941),
-                ),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -113,7 +100,6 @@ class CourseDetailsScreen extends StatelessWidget {
                   "Free Enroll Now",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

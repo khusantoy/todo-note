@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/controllers/course_controller.dart';
 import 'package:todo_and_note/view/screens/course_details_screen.dart';
+import 'package:todo_and_note/view/widgets/search_view_delegate.dart';
 
 class CoursesScreen extends StatefulWidget {
   const CoursesScreen({super.key});
@@ -14,6 +15,8 @@ class _CoursesScreenState extends State<CoursesScreen> {
 
   bool isListView = true;
 
+  List<String> filteredData = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -22,6 +25,16 @@ class _CoursesScreenState extends State<CoursesScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            IconButton(
+              onPressed: () async {
+                String? result = await showSearch(
+                  context: context,
+                  delegate: SearchViewDelegate(coursesController.list),
+                );
+                print(result);
+              },
+              icon: const Icon(Icons.search),
+            ),
             IconButton(
               onPressed: () {
                 setState(() {

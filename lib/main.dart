@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
+import 'package:todo_and_note/utils/theme.dart';
 import 'package:todo_and_note/view/screens/auth/login_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
 
@@ -40,13 +41,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFFDE49E),
-          centerTitle: true,
-        ),
-        scaffoldBackgroundColor: const Color(0xFFFDE49E),
-      ),
+      theme: CustomTheme.lightThemeData(context),
+      darkTheme: CustomTheme.darkThemeData(),
+      themeMode: ThemeMode.light,
       home: isLoggedIn ? const MainScreen() : const LoginScreen(),
     );
   }

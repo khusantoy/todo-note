@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/controllers/users_controller.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
 import 'package:todo_and_note/view/screens/auth/login_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
@@ -18,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _authHttpServices = AuthHttpServices();
   final _passwordController = TextEditingController();
   final _passwordConfirmController = TextEditingController();
+  final userController = UsersController();
 
   String? email, password, passwordConfirm;
   bool isLoading = false;
@@ -38,6 +40,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ));
   }
 
+  void saveUser() {
+    userController.addUser();
+  }
+
   void submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -50,7 +56,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       try {
         await _authHttpServices.register(email!, password!);
         checkExpire();
-        Navigator.push(
+        saveUser();
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (ctx) => const MainScreen()),
         );

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/controllers/users_controller.dart';
 import 'package:todo_and_note/models/course.dart';
 import 'package:todo_and_note/view/screens/successful_payment_screen.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
   final Course course;
-  const CourseDetailsScreen({super.key, required this.course});
+  CourseDetailsScreen({super.key, required this.course});
+
+  final userController = UsersController();
+
+  void addCourseToFavorite() {
+    userController.addCourseToFavorite(course.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,6 +21,16 @@ class CourseDetailsScreen extends StatelessWidget {
           "Course Details",
           style: TextStyle(color: Color(0xFFDD761C)),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add_shopping_cart),
+          ),
+          IconButton(
+            onPressed: addCourseToFavorite,
+            icon: const Icon(Icons.favorite_border),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

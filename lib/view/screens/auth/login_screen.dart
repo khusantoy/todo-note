@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
 import 'package:todo_and_note/view/screens/auth/forgot_password_screen.dart';
 import 'package:todo_and_note/view/screens/auth/register_screen.dart';
@@ -54,14 +55,23 @@ class _LoginScreenState extends State<LoginScreen> {
           context,
           MaterialPageRoute(builder: (ctx) => const MainScreen()),
         );
-      } on Exception catch (e) {
+      } on ClientException {
+        showDialog(
+          context: context,
+          builder: (ctx) {
+            return const AlertDialog(
+              title: Text("Error"),
+              content: Text("Connect to the internet"),
+            );
+          },
+        );
+      } catch (e) {
         String message = e.toString();
 
         if (e.toString().contains("EMAIL_EXISTS")) {
           message = "Email is exists";
-        } else if (e.toString().contains("INVALID_LOGIN_CREDENTIALS")) {
-          message = "User not found";
         }
+
         showDialog(
           context: context,
           builder: (ctx) {

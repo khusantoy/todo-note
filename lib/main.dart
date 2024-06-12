@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
@@ -39,12 +40,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: CustomTheme.lightThemeData(context),
-      darkTheme: CustomTheme.darkThemeData(),
-      themeMode: ThemeMode.light,
-      home: isLoggedIn ? const MainScreen() : const LoginScreen(),
+    return AdaptiveTheme(
+      light: CustomTheme.lightThemeData(context),
+      dark: CustomTheme.darkThemeData(),
+      initial: AdaptiveThemeMode.light,
+      builder: (light, dark) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: light,
+          darkTheme: dark,
+          themeMode: ThemeMode.light,
+          home: isLoggedIn ? const MainScreen() : const LoginScreen(),
+        );
+      },
     );
   }
 }

@@ -43,6 +43,7 @@ dependencies:
   sqflite: ^2.3.3+1
   shared_preferences: ^2.2.3
   uuid: ^4.4.0
+  adaptive_theme: ^3.6.0
 
 dev_dependencies:
   flutter_test:

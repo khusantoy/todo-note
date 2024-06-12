@@ -1,9 +1,17 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/main.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool isDark = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +77,11 @@ class ProfileScreen extends StatelessWidget {
           )
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Row(
+            const Row(
               children: [
                 CircleAvatar(
                   radius: 35.0,
@@ -103,6 +111,19 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 )
               ],
+            ),
+            SwitchListTile(
+              title: const Text("Theme"),
+              value: isDark,
+              onChanged: (value) {
+                setState(() {
+                  isDark = !isDark;
+
+                  isDark
+                      ? AdaptiveTheme.of(context).setDark()
+                      : AdaptiveTheme.of(context).setLight();
+                });
+              },
             )
           ],
         ),

@@ -89,7 +89,6 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                 );
                               },
                               contentPadding: const EdgeInsets.all(10),
-                              tileColor: const Color(0xFFFEB941),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -140,7 +139,6 @@ class _CoursesScreenState extends State<CoursesScreen> {
                               );
                             },
                             child: Card(
-                              color: const Color(0xFFFEB941),
                               clipBehavior: Clip.hardEdge,
                               child: Column(
                                 children: [

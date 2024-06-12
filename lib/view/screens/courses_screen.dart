@@ -119,12 +119,8 @@ class _CoursesScreenState extends State<CoursesScreen> {
 
                           return GestureDetector(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      CourseDetailsScreen(course: course),
-                                ),
-                              );
+                              Navigator.pushNamed(context, '/coursedetails',
+                                  arguments: course);
                             },
                             child: Card(
                               color: const Color(0xFFFEB941),

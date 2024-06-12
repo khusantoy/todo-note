@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:todo_and_note/view/screens/lessons_screen.dart';
+import 'package:todo_and_note/models/lesson.dart';
 
 class SuccessfulPaymentScreen extends StatefulWidget {
-  const SuccessfulPaymentScreen({super.key});
+  final List<Lesson> lessons;
+
+  const SuccessfulPaymentScreen({super.key, required this.lessons});
 
   @override
   State<SuccessfulPaymentScreen> createState() =>
@@ -15,12 +17,8 @@ class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (ctx) => const LessonsScreen(),
-        ),
-      );
+      Navigator.pushReplacementNamed(context, '/lessons',
+          arguments: widget.lessons);
     });
   }
 

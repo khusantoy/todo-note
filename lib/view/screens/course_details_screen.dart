@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/models/course.dart';
-import 'package:todo_and_note/view/screens/successful_payment_screen.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
   final Course course;
@@ -84,12 +83,8 @@ class CourseDetailsScreen extends StatelessWidget {
                   backgroundColor: const Color(0xFFFEB941),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SuccessfulPaymentScreen(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/successfulpaymentscreen',
+                      arguments: course.lessons);
                 },
                 child: const Text(
                   "Free Enroll Now",

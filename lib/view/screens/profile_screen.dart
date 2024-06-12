@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/main.dart';
+import 'package:todo_and_note/services/auth_http_services.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -37,6 +39,29 @@ class ProfileScreen extends StatelessWidget {
                       width: 15,
                     ),
                     Text('Set Profile Photo'),
+                  ],
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'logout',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) {
+                        return const MyApp();
+                      },
+                    ),
+                  );
+                  return AuthHttpServices.logout();
+                },
+                child: const Row(
+                  children: [
+                    Icon(Icons.logout),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text('Log Out'),
                   ],
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/controllers/todo_controller.dart';
 import 'package:todo_and_note/models/todo.dart';
@@ -13,6 +14,28 @@ class TodosScreen extends StatefulWidget {
 
 class _TodosScreenState extends State<TodosScreen> {
   final todosController = TodoController();
+
+  void addTodo() async {
+    final data = await showDialog(
+      context: context,
+      builder: (ctx) {
+        return const ManageTodoDialog();
+      },
+    );
+
+    if (data != null) {
+      try {
+        todosController.addTodo(
+          data['id'],
+          data['title'],
+          data['isCompleted'] ?? false,
+        );
+        setState(() {});
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    }
+  }
 
   void editTodo(Todo todo) async {
     final data = await showDialog(
@@ -65,45 +88,53 @@ class _TodosScreenState extends State<TodosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: todosController.list,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-          if (!snapshot.hasData) {
-            return const Center(
-              child: Text("Todo mavjud emas, iltimos qo'shing"),
-            );
-          }
-          final todos = snapshot.data;
-          return todos == null
-              ? const Center(
-                  child: Text("Todo mavjud emas, iltimos qo'shing"),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(15),
-                  itemCount: todos.length,
-                  itemBuilder: (ctx, index) {
-                    final todo = todos[index];
-                    return TodoItem(
-                      todo: todo,
-                      onEdit: () {
-                        editTodo(todo);
-                      },
-                      onDelete: () {
-                        deleteTodo(todo);
-                      },
-                    );
-                  },
-                );
-        });
+    return Scaffold(
+      body: FutureBuilder(
+          future: todosController.list,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
+            }
+            if (!snapshot.hasData) {
+              return const Center(
+                child: Text("Todo mavjud emas, iltimos qo'shing"),
+              );
+            }
+            final todos = snapshot.data;
+            return todos == null || todos.isEmpty
+                ? const Center(
+                    child: Text("Todo mavjud emas, iltimos qo'shing"),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(15),
+                    itemCount: todos.length,
+                    itemBuilder: (ctx, index) {
+                      final todo = todos[index];
+                      return TodoItem(
+                        todo: todo,
+                        onEdit: () {
+                          editTodo(todo);
+                        },
+                        onDelete: () {
+                          deleteTodo(todo);
+                        },
+                      );
+                    },
+                  );
+          }),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: const Color(0xFF03AED2),
+        onPressed: addTodo,
+        child: const Icon(CupertinoIcons.add, color: Colors.white),
+      ),
+    );
   }
 }

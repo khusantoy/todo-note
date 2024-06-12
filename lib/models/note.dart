@@ -4,7 +4,7 @@ part 'note.g.dart';
 
 @JsonSerializable()
 class Note {
-  String id;
+  final int id;
   String title;
 
   Note({
@@ -14,6 +14,10 @@ class Note {
 
   factory Note.fromJson(Map<String, dynamic> json) {
     return _$NoteFromJson(json);
+  }
+
+  factory Note.fromMap(Map<String, dynamic> map) {
+    return Note(id: map['id'], title: map['title']);
   }
 
   Map<String, dynamic> toJson() {

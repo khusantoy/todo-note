@@ -22,12 +22,9 @@ class DashboardScreen extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 "Completed",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(
                 height: 15,
@@ -56,12 +53,9 @@ class DashboardScreen extends StatelessWidget {
           ),
           Column(
             children: [
-              const Text(
+              Text(
                 "Incompleted",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(
                 height: 15,
@@ -70,7 +64,6 @@ class DashboardScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.40,
                 height: MediaQuery.of(context).size.height * 0.15,
                 decoration: const BoxDecoration(
-                  color: Colors.blue,
                   borderRadius: BorderRadius.all(
                     Radius.circular(15),
                   ),

@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:todo_and_note/controllers/users_controller.dart';
 import 'package:todo_and_note/models/course.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
   final Course course;
-  const CourseDetailsScreen({super.key, required this.course});
+  CourseDetailsScreen({super.key, required this.course});
+
+  final userController = UsersController();
+
+  void addCourseToFavorite() {
+    userController.addCourseToFavorite(course.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Course Details",
-          style: TextStyle(color: Color(0xFFDD761C)),
-        ),
+        title: const Text("Course Details"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add_shopping_cart),
+          ),
+          IconButton(
+            onPressed: addCourseToFavorite,
+            icon: const Icon(Icons.favorite_border),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -50,26 +65,19 @@ class CourseDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Divider(
-              color: Colors.grey,
-            ),
+            const Divider(),
             RichText(
               text: TextSpan(
                 children: [
-                  const TextSpan(
-                    text: "Price: ",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
+                  const TextSpan(text: "Price: "),
                   TextSpan(
                     text: course.price.toString(),
                     style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const TextSpan(
                     text: " sum",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    style: TextStyle(fontSize: 18),
                   ),
                 ],
               ),
@@ -79,9 +87,6 @@ class CourseDetailsScreen extends StatelessWidget {
               width: double.infinity,
               height: 65,
               child: FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFFFEB941),
-                ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/successfulpaymentscreen',
                       arguments: course.lessons);
@@ -90,7 +95,6 @@ class CourseDetailsScreen extends StatelessWidget {
                   "Free Enroll Now",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

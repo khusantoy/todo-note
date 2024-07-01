@@ -5,6 +5,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:todo_and_note/view/screens/dashboard_screen.dart';
 import 'package:todo_and_note/view/screens/home_screen.dart';
 import 'package:todo_and_note/view/screens/profile_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -92,10 +93,10 @@ class _MainScreenState extends State<MainScreen> {
                   backgroundColor: const Color(0xFFFDE49E),
                   indicatorColor: const Color(0xFFFEB941),
                   labelType: NavigationRailLabelType.all,
-                  destinations: const <NavigationRailDestination>[
+                  destinations: <NavigationRailDestination>[
                     NavigationRailDestination(
                       icon: Icon(Icons.home),
-                      label: Text('Home'),
+                      label: Text(AppLocalizations.of(context)!.home),
                     ),
                     NavigationRailDestination(
                       icon: Icon(Icons.dashboard),
@@ -122,12 +123,12 @@ class _MainScreenState extends State<MainScreen> {
           ? NavigationBar(
               backgroundColor: const Color(0xFFFDE49E),
               indicatorColor: const Color(0xFFFEB941),
-              destinations: const <NavigationDestination>[
+              destinations: <NavigationDestination>[
                 NavigationDestination(
                   icon: Icon(
                     Icons.home,
                   ),
-                  label: "Home",
+                  label: AppLocalizations.of(context)!.home,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.dashboard),

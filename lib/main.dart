@@ -5,6 +5,7 @@ import 'package:todo_and_note/services/auth_http_services.dart';
 import 'package:todo_and_note/utils/theme.dart';
 import 'package:todo_and_note/view/screens/auth/login_screen.dart';
 import 'package:todo_and_note/view/screens/main_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
           theme: light,
           darkTheme: dark,
           themeMode: ThemeMode.light,
+          locale: AppLocalizations.supportedLocales[1],
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: isLoggedIn ? const MainScreen() : const LoginScreen(),
         );
       },

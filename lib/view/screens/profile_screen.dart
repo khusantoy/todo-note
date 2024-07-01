@@ -12,6 +12,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isDark = false;
+  String _selectedLanguage = 'English'; // Default selected language
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +127,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       : AdaptiveTheme.of(context).setLight();
                 });
               },
-            )
+            ),
+            DropdownButton<String>(
+              value: _selectedLanguage,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedLanguage = newValue!;
+                });
+              },
+              items: <String>['English', 'Russian', 'Uzbek']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
           ],
         ),
       ),

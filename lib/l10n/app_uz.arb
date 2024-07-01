@@ -1,5 +1,26 @@
 {
-    "home":"Bosh menyu"
-    "dashboard":"Boshqaruv paneli"
-    "profile":"Profil" 
+    "home" : "Bosh sahifa",
+    "dashboard" : "Boshqaruv paneli",
+    "profile" : "Profil",
+    "edit_info" : "Ma'lumotlarni tahrirlash",
+    "set_profile_photo" : "Profil fotosuratini o'rnatish",
+    "log_out" : "Chiqish",
+    "theme" : "Mavzu",
+    "completed" : "Tugallangan",
+    "incompleted" : "Tugallanmagan", 
+    "courses" : "Kurslar", 
+    "notes" : "Eslatmalar",
+    "todos" : "Vazifalar ro'yxati",
+    "add_todo" : "Vazifa qo'shish",
+    "todo_title" : "Vazifa nomi",
+    "close" : "Yopish",
+    "save" : "Saqlash",
+    "not_exists" : "Mavjud eslatmalar yo'q",
+    "edit_note" : "Eslatmani tahrirlash",
+    "course_details" : "Kurs tafsilotlari",
+    "free_enroll_now" : "Bepul ro'yxatdan o'tish",
+    "manage_courses" : "Kurslarni boshqarish",
+    "search" : "Qidirish",
+    "not_found" : "Topilmadi",
+    "change_lang" : "Tilni almashtirish"
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -7,8 +8,8 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Dashboard",
+        title:  Text(
+          AppLocalizations.of(context)!.dashboard,
           style: TextStyle(
             color: Color(0xFFDD761C),
           ),
@@ -23,7 +24,7 @@ class DashboardScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Completed",
+                AppLocalizations.of(context)!.completed,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(
@@ -54,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
           Column(
             children: [
               Text(
-                "Incompleted",
+                AppLocalizations.of(context)!.incompleted,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(

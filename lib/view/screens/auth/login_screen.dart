@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (ctx) => const MainScreen()),
+          MaterialPageRoute(builder: (ctx) =>  MainScreen(changeLanguageCallback: (p0) => 0,)),
         );
       } on ClientException {
         showDialog(

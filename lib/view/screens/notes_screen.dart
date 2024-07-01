@@ -4,6 +4,7 @@ import 'package:todo_and_note/controllers/notes_controller.dart';
 import 'package:todo_and_note/models/note.dart';
 import 'package:todo_and_note/view/widgets/manage_note_dialog.dart';
 import 'package:todo_and_note/view/widgets/note_item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -59,7 +60,7 @@ class _NotesScreenState extends State<NotesScreen> {
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: const Text("Cancel"),
+              child: Text(AppLocalizations.of(context)!.close),
             ),
             FilledButton(
               onPressed: () {
@@ -96,14 +97,14 @@ class _NotesScreenState extends State<NotesScreen> {
             );
           }
           if (!snapshot.hasData) {
-            return const Center(
-              child: Text("Notelar mavjud emas, iltimos qo'shing"),
+            return Center(
+              child: Text(AppLocalizations.of(context)!.dashboard),
             );
           }
           final notes = snapshot.data;
           return notes == null || notes.isEmpty
-              ? const Center(
-                  child: Text("Notelar mavjud emas, iltimos qo'shing"),
+              ? Center(
+                  child: Text(AppLocalizations.of(context)!.not_exists),
                 )
               : ListView.builder(
                   padding: const EdgeInsets.all(15),

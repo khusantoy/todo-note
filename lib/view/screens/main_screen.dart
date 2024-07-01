@@ -8,7 +8,8 @@ import 'package:todo_and_note/view/screens/profile_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final Function(int) changeLanguageCallback;
+  const MainScreen({super.key, required this.changeLanguageCallback});
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -17,10 +18,14 @@ class _MainScreenState extends State<MainScreen> {
   bool isConnectedToInternet = false;
 
   StreamSubscription? _internetConnectionStreamSubscription;
+  late ProfileScreen profileScreen;
 
   @override
   void initState() {
     super.initState();
+
+    profileScreen =
+        ProfileScreen(changeLanguageCallback: widget.changeLanguageCallback);
 
     _internetConnectionStreamSubscription =
         InternetConnection().onStatusChange.listen((event) {
@@ -67,12 +72,6 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
-  List<Widget> screens = [
-    const HomeScreen(),
-    const DashboardScreen(),
-    const ProfileScreen()
-  ];
-
   int _selectedIndex = 0;
 
   void _onTapped(int index) {
@@ -83,6 +82,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [
+      const HomeScreen(),
+      const DashboardScreen(),
+      profileScreen
+    ];
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: screenWidth > 480
@@ -95,16 +99,16 @@ class _MainScreenState extends State<MainScreen> {
                   labelType: NavigationRailLabelType.all,
                   destinations: <NavigationRailDestination>[
                     NavigationRailDestination(
-                      icon: Icon(Icons.home),
+                      icon: const Icon(Icons.home),
                       label: Text(AppLocalizations.of(context)!.home),
                     ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.dashboard),
-                      label: Text('Dashboard'),
+                     NavigationRailDestination(
+                      icon: const Icon(Icons.dashboard),
+                      label: Text(AppLocalizations.of(context)!.dashboard),
                     ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.person),
-                      label: Text('Profile'),
+                     NavigationRailDestination(
+                      icon: const Icon(Icons.person),
+                      label: Text(AppLocalizations.of(context)!.profile),
                     ),
                   ],
                   selectedIndex: _selectedIndex,
@@ -125,18 +129,18 @@ class _MainScreenState extends State<MainScreen> {
               indicatorColor: const Color(0xFFFEB941),
               destinations: <NavigationDestination>[
                 NavigationDestination(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.home,
                   ),
                   label: AppLocalizations.of(context)!.home,
                 ),
-                NavigationDestination(
-                  icon: Icon(Icons.dashboard),
-                  label: "Dashboard",
+                 NavigationDestination(
+                  icon: const Icon(Icons.dashboard),
+                  label: AppLocalizations.of(context)!.dashboard,
                 ),
-                NavigationDestination(
-                  icon: Icon(Icons.person),
-                  label: "Profile",
+                 NavigationDestination(
+                  icon: const Icon(Icons.person),
+                  label: AppLocalizations.of(context)!.profile,
                 ),
               ],
               selectedIndex: _selectedIndex,

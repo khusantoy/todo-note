@@ -28,6 +28,8 @@ class _MyAppState extends State<MyApp> {
   final authHttpServices = AuthHttpServices();
   bool isLoggedIn = false;
 
+  int currentLang = 0;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +38,12 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         isLoggedIn = value;
       });
+    });
+  }
+
+  void changeLanguage(int langIndex) {
+    setState(() {
+      currentLang = langIndex;
     });
   }
 
@@ -51,10 +59,12 @@ class _MyAppState extends State<MyApp> {
           theme: light,
           darkTheme: dark,
           themeMode: ThemeMode.light,
-          locale: AppLocalizations.supportedLocales[1],
+          locale: AppLocalizations.supportedLocales[currentLang],
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: isLoggedIn ? const MainScreen() : const LoginScreen(),
+          home: isLoggedIn
+              ? MainScreen(changeLanguageCallback: changeLanguage)
+              : const LoginScreen(),
         );
       },
     );

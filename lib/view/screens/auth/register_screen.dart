@@ -59,7 +59,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         saveUser();
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (ctx) => const MainScreen()),
+          MaterialPageRoute(
+              builder: (ctx) => MainScreen(
+                    changeLanguageCallback: (p0) => 0,
+                  )),
         );
       } catch (e) {
         String message = e.toString();

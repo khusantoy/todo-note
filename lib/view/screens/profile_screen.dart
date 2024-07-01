@@ -2,9 +2,11 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/main.dart';
 import 'package:todo_and_note/services/auth_http_services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final Function(int) changeLanguageCallback;
+  const ProfileScreen({super.key, required this.changeLanguageCallback});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -14,42 +16,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isDark = false;
   String _selectedLanguage = 'English'; // Default selected language
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Profile",
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.profile,
+          style: const TextStyle(
             color: Color(0xFFDD761C),
           ),
         ),
         actions: [
           PopupMenuButton(
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
-                value: 'edit info',
+              PopupMenuItem<String>(
+                value: AppLocalizations.of(context)!.edit_info,
                 child: Row(
                   children: [
                     Icon(Icons.edit),
                     SizedBox(
                       width: 15,
                     ),
-                    Text('Edit Info'),
+                    Text(AppLocalizations.of(context)!.edit_info),
                   ],
                 ),
               ),
-              const PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: 'set photo',
                 child: Row(
                   children: [
-                    Icon(Icons.camera_alt_outlined),
-                    SizedBox(
+                    const Icon(Icons.camera_alt_outlined),
+                    const SizedBox(
                       width: 15,
                     ),
-                    Text('Set Profile Photo'),
+                    Text(AppLocalizations.of(context)!.set_profile_photo),
                   ],
                 ),
               ),
@@ -66,13 +66,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                   return AuthHttpServices.logout();
                 },
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.logout),
-                    SizedBox(
+                    const Icon(Icons.logout),
+                    const SizedBox(
                       width: 15,
                     ),
-                    Text('Log Out'),
+                    Text(AppLocalizations.of(context)!.log_out),
                   ],
                 ),
               ),
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             SwitchListTile(
-              title: const Text("Theme"),
+              title: Text(AppLocalizations.of(context)!.theme),
               value: isDark,
               onChanged: (value) {
                 setState(() {
@@ -128,20 +128,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 });
               },
             ),
-            DropdownButton<String>(
-              value: _selectedLanguage,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedLanguage = newValue!;
-                });
-              },
-              items: <String>['English', 'Russian', 'Uzbek']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.change_lang,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                DropdownButton<String>(
+                  value: _selectedLanguage,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedLanguage = newValue!;
+                      int langIndex = 0;
+                      switch (newValue) {
+                        case 'English':
+                          langIndex = 0;
+                          break;
+                        case 'Russian':
+                          langIndex = 1;
+                          break;
+                        case 'Uzbek':
+                          langIndex = 2;
+                          break;
+                      }
+                      widget.changeLanguageCallback(langIndex);
+                    });
+                  },
+                  items: <String>['English', 'Russian', 'Uzbek']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
             ),
           ],
         ),

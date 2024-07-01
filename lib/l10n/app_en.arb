@@ -1,5 +1,26 @@
 {
-    "home":"Home"
-    "dashboard:"Dashboard"
-    "profile":"Profile"
+    "home" : "Home",
+    "dashboard" : "Dashboard",
+    "profile" : "Profile",
+    "edit_info" : "Edit info",
+    "set_profile_photo" : "Set profile photo",
+    "log_out" : "Log out",
+    "theme" : "Theme",
+    "completed" : "Completed",
+    "incompleted" : "Incompleted", 
+    "courses" : "Courses", 
+    "notes" : "Notes",
+    "todos" : "Todos",
+    "add_todo" : "Add todo",
+    "todo_title" : "Todo title",
+    "close" : "Close",
+    "save" : "Save",
+    "not_exists" : "No available notes",
+    "edit_note" : "Edit note",
+    "course_details" : "Course details",
+    "free_enroll_now" : "Free enroll now",
+    "manage_courses" : "Manage courses",
+    "search" : "Search",
+    "not_found" : "Not found",
+    "change_lang" : "Change Language"
 }

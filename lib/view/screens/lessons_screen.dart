@@ -3,7 +3,8 @@ import 'package:todo_and_note/models/lesson.dart';
 import 'package:todo_and_note/view/screens/dashboard_screen.dart';
 import 'package:todo_and_note/view/screens/home_screen.dart';
 import 'package:todo_and_note/view/screens/lesson_screen.dart';
-import 'package:todo_and_note/view/screens/profile_screen.dart';
+
+// import 'package:todo_and_note/view/screens/profile_screen.dart';
 
 class LessonsScreen extends StatefulWidget {
   final List<Lesson> lessons;
@@ -16,7 +17,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
   List<Widget> screens = [
     const HomeScreen(),
     const DashboardScreen(),
-    const ProfileScreen()
+    // const ProfileScreen()
   ];
 
   void _onTapped(int index) {
@@ -31,7 +32,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title:  const Text(
           "Lessons",
           style: TextStyle(
             color: Color(0xFFDD761C),
@@ -81,27 +82,27 @@ class _LessonsScreenState extends State<LessonsScreen> {
           );
         },
       ),
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: const Color(0xFFFDE49E),
-        indicatorColor: const Color(0xFFFEB941),
-        destinations: const <NavigationDestination>[
-          NavigationDestination(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: "Home",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.dashboard),
-            label: "Dashboard",
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-        ],
-        onDestinationSelected: _onTapped,
-      ),
+      // bottomNavigationBar: NavigationBar(
+      //   backgroundColor: const Color(0xFFFDE49E),
+      //   indicatorColor: const Color(0xFFFEB941),
+      //   destinations: const <NavigationDestination>[
+      //     NavigationDestination(
+      //       icon: Icon(
+      //         Icons.home,
+      //       ),
+      //       label: "Home",
+      //     ),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.dashboard),
+      //       label: "Dashboard",
+      //     ),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.person),
+      //       label: "Profile",
+      //     ),
+      //   ],
+      //   onDestinationSelected: _onTapped,
+      // ),
     );
   }
 }

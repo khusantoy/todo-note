@@ -4,6 +4,7 @@ import 'package:todo_and_note/controllers/todo_controller.dart';
 import 'package:todo_and_note/view/screens/courses_screen.dart';
 import 'package:todo_and_note/view/screens/notes_screen.dart';
 import 'package:todo_and_note/view/screens/todos_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,22 +34,22 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       appBar: AppBar(
         title: tabController.index == 0
-            ? const Text(
-                "Todos",
-                style: TextStyle(
+            ? Text(
+                AppLocalizations.of(context)!.todos,
+                style: const TextStyle(
                   color: Color(0xFFDD761C),
                 ),
               )
             : tabController.index == 1
-                ? const Text(
-                    "Notes",
-                    style: TextStyle(
+                ? Text(
+                    AppLocalizations.of(context)!.notes,
+                    style: const TextStyle(
                       color: Color(0xFFDD761C),
                     ),
                   )
-                : const Text(
-                    "Courses",
-                    style: TextStyle(
+                : Text(
+                    AppLocalizations.of(context)!.courses,
+                    style: const TextStyle(
                       color: Color(0xFFDD761C),
                     ),
                   ),
@@ -58,20 +59,18 @@ class _HomeScreenState extends State<HomeScreen>
           indicatorColor: const Color(0xFFDD761C),
           labelColor: const Color(0xFF03AED2),
           controller: tabController,
-          tabs: const [
+          tabs: [
             Tab(
-              text: "Todos",
-              icon: Icon(
-                Icons.check_box,
-              ),
+              text: AppLocalizations.of(context)!.todos,
+              icon: const Icon(Icons.check_box),
             ),
             Tab(
-              text: "Notes",
-              icon: Icon(Icons.edit_document),
+              text: AppLocalizations.of(context)!.notes,
+              icon: const Icon(Icons.edit_document),
             ),
             Tab(
-              text: "Courses",
-              icon: Icon(Icons.school),
+              text: AppLocalizations.of(context)!.courses,
+              icon: const Icon(Icons.school),
             )
           ],
         ),
@@ -79,12 +78,12 @@ class _HomeScreenState extends State<HomeScreen>
           if (tabController.index == 2)
             PopupMenuButton(itemBuilder: (BuildContext context) {
               return [
-                const PopupMenuItem(
+                 PopupMenuItem(
                   child: Row(
                     children: [
-                      Icon(Icons.settings),
-                      SizedBox(width: 15),
-                      Text("Manage Courses")
+                      const Icon(Icons.settings),
+                      const SizedBox(width: 15),
+                      Text(AppLocalizations.of(context)!.manage_courses)
                     ],
                   ),
                 ),

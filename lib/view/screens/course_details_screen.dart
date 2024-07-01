@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_and_note/controllers/users_controller.dart';
 import 'package:todo_and_note/models/course.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
   final Course course;
@@ -16,7 +17,7 @@ class CourseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Course Details"),
+        title:  Text(AppLocalizations.of(context)!.course_details),
         actions: [
           IconButton(
             onPressed: () {},

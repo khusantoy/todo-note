@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_and_note/controllers/course_controller.dart';
 import 'package:todo_and_note/view/screens/course_details_screen.dart';
 import 'package:todo_and_note/view/widgets/search_view_delegate.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CoursesScreen extends StatefulWidget {
   const CoursesScreen({super.key});
@@ -61,14 +62,14 @@ class _CoursesScreenState extends State<CoursesScreen> {
                 child: Text(snapshot.error.toString()),
               );
             } else if (!snapshot.hasData) {
-              return const Center(
-                child: Text("No available courses."),
+              return Center(
+                child: Text(AppLocalizations.of(context)!.not_exists),
               );
             }
             final courses = snapshot.data;
             return courses == null
-                ? const Center(
-                    child: Text("No available courses. You can add it."),
+                ? Center(
+                    child: Text(AppLocalizations.of(context)!.not_exists),
                   )
                 : isListView
                     ? ListView.builder(
